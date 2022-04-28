@@ -1,0 +1,75 @@
+<MyVideoPlayer>:
+    orientation: 'vertical'
+    padding: 0
+    spacing: 1
+
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 0
+        spacing: 1
+        size_hint: (1.0, 0.1)
+
+        TextInput:
+            id: txtFName
+            text: ''
+            multiline: False
+
+        Button:
+            text: 'file load'
+            on_press: root.fileSelect()
+
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 0
+        spacing: 1
+
+        Image:
+            id: video
+
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 0
+        spacing: 1
+        size_hint: (1.0, 0.1)
+        Slider:
+            id: timeSlider
+            value: 0.0
+            max: 0.0
+            min: 0.0
+            step: 1
+            on_touch_move: root.siderTouchMove()
+
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 0
+        spacing: 1
+        size_hint: (1.0, 0.1)
+
+        ToggleButton:
+            size_hint: (0.2, 1)
+            text: 'Play'
+            on_press: root.play()
+
+        Label:
+            size_hint: (0.2, 1)
+            text: str(timeSlider.value) + "/" + str(timeSlider.max)
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: 'vertical'
+        FileChooserListView:
+            id: filechooser
+            path: "./"
+
+        BoxLayout:
+            size_hint_y : None
+            height : 30
+            Button:
+                text: 'Cancel'
+                on_release: root.cancel()
+
+            Button:
+                text: 'Load'
+                on_release: root.load(filechooser.path, filechooser.selection)
